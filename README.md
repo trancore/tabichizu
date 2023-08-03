@@ -16,3 +16,13 @@ tabichizu
 # README について
 
 [こちら](https://trancore.github.io/tabichizu/)に記載しています。
+
+ローカルで確認する場合は、docsify をインストールした後、以下コマンドを実行し、`http://localhost:3000`にアクセスしてください。
+
+```bash
+# Docsify のインストール
+$ npm i docsify-cli -g
+
+# Docsify のローカル起動
+$ docsify serve docs
+```
