@@ -3,11 +3,13 @@ import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:path_drawing/path_drawing.dart';
 import 'package:tabichizu/data/constants/hive.dart';
 import 'package:tabichizu/data/constants/prefecture.dart';
 import 'package:tabichizu/data/model/hive/location/location.dart';
+import 'package:tabichizu/ui/common/ad_banner.dart';
 import 'package:xml/xml.dart';
 
 class SVGMap extends StatefulWidget {
@@ -93,7 +95,15 @@ class SVGMapState extends State<SVGMap> {
               maxScale: 2.0,
               child: CustomPaint(
                 painter: SVGMapPainter(context, notifier, snapshot.data),
-                child: const SizedBox.expand(),
+                child: const SizedBox.expand(
+                    child: Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsetsDirectional.only(top: 64),
+                    ),
+                    AdBannerWidget(size: AdSize.largeBanner),
+                  ],
+                )),
               ),
             ),
           );

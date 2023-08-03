@@ -69,92 +69,97 @@ class _AccountState extends State<Account> {
     _textController.text = userBox.get("user")?.userName ?? "UserName";
 
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            const AdBannerWidget(size: AdSize.largeBanner),
-            Padding(
-              padding: const EdgeInsetsDirectional.only(top: 64),
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
-                child: GestureDetector(
-                  onTap: changeImage,
-                  child: image == null
-                      ? const Icon(
-                          Icons.account_circle,
-                          size: 144,
-                        )
-                      : Container(
-                          height: 200,
-                          width: 200,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            image: DecorationImage(
-                              image: FileImage(File(image!.path)),
-                              fit: BoxFit.contain,
-                            ),
-                          ),
+      body: Column(
+        children: [
+          const Padding(
+            padding: EdgeInsetsDirectional.only(top: 64),
+          ),
+          const AdBannerWidget(
+            size: AdSize.largeBanner,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
+            child: GestureDetector(
+              onTap: changeImage,
+              child: image == null
+                  ? const Icon(
+                      Icons.account_circle,
+                      size: 144,
+                    )
+                  : Container(
+                      height: 200,
+                      width: 200,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                          image: FileImage(File(image!.path)),
+                          fit: BoxFit.contain,
                         ),
-                ),
-              ),
-            ),
-            SizedBox(
-              width: 256,
-              child: CustomForm(
-                child: CustomFormTextField(
-                  name: "userName",
-                  fontSize: 44,
-                  hasBorder: false,
-                  textAlign: TextAlign.center,
-                  controller: _textController,
-                  onChanged: changeUserName,
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(24),
-              child: CustomTable(
-                children: [
-                  TableRow(
-                    children: [
-                      const CustomCell(
-                        id: "theme",
-                        text: "テーマ",
-                        textAlign: TextAlign.center,
                       ),
-                      ValueListenableBuilder(
-                        valueListenable: userBox.listenable(),
-                        builder: (context, box, _) {
-                          int theme = box.get("user")?.theme ??
-                              const Color(0xff000000).value;
-                          return CustomCell(
-                            id: "colorCode",
-                            text: Color(theme).value.toRadixString(16),
-                            textAlign: TextAlign.right,
-                            onTap: (_, __) {
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return CustomColorPicker(
+                    ),
+            ),
+          ),
+          SizedBox(
+            width: 256,
+            child: CustomForm(
+              child: CustomFormTextField(
+                name: "userName",
+                fontSize: 44,
+                hasBorder: false,
+                textAlign: TextAlign.center,
+                controller: _textController,
+                onChanged: changeUserName,
+              ),
+            ),
+          ),
+          SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(24),
+                  child: CustomTable(
+                    children: [
+                      TableRow(
+                        children: [
+                          const CustomCell(
+                            id: "theme",
+                            text: "テーマ",
+                            textAlign: TextAlign.center,
+                          ),
+                          ValueListenableBuilder(
+                            valueListenable: userBox.listenable(),
+                            builder: (context, box, _) {
+                              int theme = box.get("user")?.theme ??
+                                  const Color(0xff000000).value;
+                              return CustomCell(
+                                id: "colorCode",
+                                text: Color(theme).value.toRadixString(16),
+                                textAlign: TextAlign.right,
+                                onTap: (_, __) {
+                                  showDialog(
                                     context: context,
-                                    theme: theme,
-                                    changeColor: changeColor,
+                                    builder: (BuildContext context) {
+                                      return CustomColorPicker(
+                                        context: context,
+                                        theme: theme,
+                                        changeColor: changeColor,
+                                      );
+                                    },
                                   );
                                 },
                               );
                             },
-                          );
-                        },
+                          ),
+                        ],
                       ),
                     ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

@@ -74,102 +74,108 @@ class _TravelState extends State<Travel> {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.only(top: 36),
-        child: CustomScrollView(slivers: [
-          SliverAppBar(
-            backgroundColor: Colors.white,
-            pinned: true,
-            flexibleSpace: CustomForm(
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
-                child: CustomFormTextField(
-                  name: "travelLocation",
-                  hasBorder: true,
-                  hintText: "訪れた場所を入力してください",
-                  onChanged: onChanged,
-                  controller: textController,
-                ),
+        child: CustomScrollView(
+          slivers: [
+            SliverAppBar(
+              backgroundColor: Colors.white,
+              pinned: true,
+              flexibleSpace: CustomForm(
+                child: Padding(
+                    padding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
+                    child: Column(
+                      children: [
+                        CustomFormTextField(
+                          name: "travelLocation",
+                          hasBorder: true,
+                          hintText: "訪れた場所を入力してください",
+                          onChanged: onChanged,
+                          controller: textController,
+                        ),
+                      ],
+                    )),
               ),
             ),
-          ),
-          SliverList(
-            delegate: SliverChildListDelegate(
-              [
-                StreamBuilder<PlacesAutocompleteModel?>(
-                  stream: _placesBloc.autocompleteDataStream,
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData &&
-                        snapshot.data?.predictions != null &&
-                        snapshot.data!.predictions.isNotEmpty) {
-                      return Suggest(
-                        suggestList: snapshot.data!.predictions
-                            .map(
-                              (prediction) => SuggestData(
-                                  placeId: prediction.placeId,
-                                  description: prediction.description),
-                            )
-                            .toList(),
-                        onTap: selectSuggest,
-                      );
-                    } else {
-                      return textController.text.isNotEmpty
-                          ? StreamBuilder(
-                              stream: _placesBloc.detailsDataStream,
-                              builder: (context, snapshot) {
-                                if (snapshot.data != null &&
-                                    snapshot.data?.result.addressComponents !=
-                                        null &&
-                                    snapshot.data?.result.geometry != null &&
-                                    snapshot.data?.result.geometry?.location !=
-                                        null) {
-                                  return LocationWidget(
-                                    title:
-                                        snapshot.data?.result.formattedAddress,
-                                    prefecture: snapshot
-                                        .data?.result.addressComponents!
-                                        .firstWhere(
-                                      (addressComponent) {
-                                        return addressComponent.types.contains(
-                                            "administrative_area_level_1");
-                                      },
-                                    ).longName,
-                                    lat: snapshot.data?.result.geometry
-                                        ?.location.lat as double,
-                                    lng: snapshot.data?.result.geometry
-                                        ?.location.lng as double,
-                                    registerLocation: registerLocation,
-                                  );
-                                } else {
-                                  return const SizedBox();
-                                }
-                              },
-                            )
-                          : const SizedBox();
-                    }
-                  },
-                ),
-                ValueListenableBuilder(
-                  valueListenable: locationBox.listenable(),
-                  builder: (context, box, _) {
-                    return hasSuggest
-                        ? const SizedBox()
-                        : Column(
-                            children: [
-                              for (Location location in box.values)
-                                LocationWidget(
-                                  lat: location.lat,
-                                  lng: location.lng,
-                                  id: location.id,
-                                  title: location.locationName,
-                                  deleteLocation: deleteLocation,
-                                )
-                            ],
-                          );
-                  },
-                )
-              ],
+            SliverList(
+              delegate: SliverChildListDelegate(
+                [
+                  StreamBuilder<PlacesAutocompleteModel?>(
+                    stream: _placesBloc.autocompleteDataStream,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData &&
+                          snapshot.data?.predictions != null &&
+                          snapshot.data!.predictions.isNotEmpty) {
+                        return Suggest(
+                          suggestList: snapshot.data!.predictions
+                              .map(
+                                (prediction) => SuggestData(
+                                    placeId: prediction.placeId,
+                                    description: prediction.description),
+                              )
+                              .toList(),
+                          onTap: selectSuggest,
+                        );
+                      } else {
+                        return textController.text.isNotEmpty
+                            ? StreamBuilder(
+                                stream: _placesBloc.detailsDataStream,
+                                builder: (context, snapshot) {
+                                  if (snapshot.data != null &&
+                                      snapshot.data?.result.addressComponents !=
+                                          null &&
+                                      snapshot.data?.result.geometry != null &&
+                                      snapshot.data?.result.geometry
+                                              ?.location !=
+                                          null) {
+                                    return LocationWidget(
+                                      title: snapshot
+                                          .data?.result.formattedAddress,
+                                      prefecture: snapshot
+                                          .data?.result.addressComponents!
+                                          .firstWhere(
+                                        (addressComponent) {
+                                          return addressComponent.types.contains(
+                                              "administrative_area_level_1");
+                                        },
+                                      ).longName,
+                                      lat: snapshot.data?.result.geometry
+                                          ?.location.lat as double,
+                                      lng: snapshot.data?.result.geometry
+                                          ?.location.lng as double,
+                                      registerLocation: registerLocation,
+                                    );
+                                  } else {
+                                    return const SizedBox();
+                                  }
+                                },
+                              )
+                            : const SizedBox();
+                      }
+                    },
+                  ),
+                  ValueListenableBuilder(
+                    valueListenable: locationBox.listenable(),
+                    builder: (context, box, _) {
+                      return hasSuggest
+                          ? const SizedBox()
+                          : Column(
+                              children: [
+                                for (Location location in box.values)
+                                  LocationWidget(
+                                    lat: location.lat,
+                                    lng: location.lng,
+                                    id: location.id,
+                                    title: location.locationName,
+                                    deleteLocation: deleteLocation,
+                                  )
+                              ],
+                            );
+                    },
+                  )
+                ],
+              ),
             ),
-          ),
-        ]),
+          ],
+        ),
       ),
     );
   }
