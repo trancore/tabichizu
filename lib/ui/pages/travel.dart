@@ -84,13 +84,15 @@ class _TravelState extends State<Travel> {
                     padding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
                     child: Column(
                       children: [
-                        CustomFormTextField(
-                          name: "travelLocation",
-                          hasBorder: true,
-                          hintText: "訪れた場所を入力してください",
-                          onChanged: onChanged,
-                          controller: textController,
-                        ),
+                        Expanded(
+                          child: CustomFormTextField(
+                            name: "travelLocation",
+                            hasBorder: true,
+                            hintText: "訪れた場所を入力してください",
+                            onChanged: onChanged,
+                            controller: textController,
+                          ),
+                        )
                       ],
                     )),
               ),
