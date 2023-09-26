@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tabichizu/domain/responsive.dart';
 import 'package:tabichizu/ui/common/icon/custom_icon.dart';
 import 'package:tabichizu/ui/pages/Travel.dart';
 import 'package:tabichizu/ui/pages/account.dart';
@@ -40,38 +39,30 @@ class _DefaultLayoutState extends State<DefaultLayout> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: Responsive.isSmallScreen(context)
-            ? null
-            : AppBar(
-                title: const Text("large"),
-              ),
+        appBar: null,
         body: PageView(
           controller: _pageController,
           children: _pages,
         ),
-        bottomNavigationBar: Responsive.isSmallScreen(context)
-            ? Container(
-                decoration: BoxDecoration(
-                  border: Border.all(color: Theme.of(context).primaryColor),
-                ),
-                child: BottomNavigationBar(
-                  currentIndex: _selectedNavigationBarItemIndex,
-                  onTap: _onItemTap,
-                  items: const [
-                    BottomNavigationBarItem(
-                        icon: CustomIcon(icon: Icons.person, size: 36),
-                        label: 'アカウント'),
-                    BottomNavigationBarItem(
-                        icon: CustomIcon(icon: Icons.home, size: 36),
-                        label: 'ホーム'),
-                    BottomNavigationBarItem(
-                        icon: CustomIcon(icon: Icons.tour, size: 36),
-                        label: '訪れた場所'),
-                  ],
-                  type: BottomNavigationBarType.fixed,
-                ),
-              )
-            : null);
+        bottomNavigationBar: Container(
+          decoration: BoxDecoration(
+            border: Border.all(color: Theme.of(context).primaryColor),
+          ),
+          child: BottomNavigationBar(
+            currentIndex: _selectedNavigationBarItemIndex,
+            onTap: _onItemTap,
+            items: const [
+              BottomNavigationBarItem(
+                  icon: CustomIcon(icon: Icons.person, size: 36),
+                  label: 'アカウント'),
+              BottomNavigationBarItem(
+                  icon: CustomIcon(icon: Icons.home, size: 36), label: 'ホーム'),
+              BottomNavigationBarItem(
+                  icon: CustomIcon(icon: Icons.tour, size: 36), label: '訪れた場所'),
+            ],
+            type: BottomNavigationBarType.fixed,
+          ),
+        ));
   }
 
   @override
