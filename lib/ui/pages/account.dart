@@ -74,9 +74,9 @@ class _AccountState extends State<Account> {
           const Padding(
             padding: EdgeInsetsDirectional.only(top: 64),
           ),
-          const AdBannerWidget(
-            size: AdSize.largeBanner,
-          ),
+          // const AdBannerWidget(
+          //   size: AdSize.largeBanner,
+          // ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
             child: GestureDetector(
