@@ -41,18 +41,18 @@ dependencies:
   hive: ^2.2.3
   hive_flutter: ^1.1.0
   flutter_colorpicker: ^1.0.3
-  flutter_form_builder: ^9.0.0
-  google_maps_flutter: ^2.3.1
+  flutter_form_builder: ^10.2.0
+  google_maps_flutter: ^2.5.0
   google_maps_flutter_web: ^0.5.0+1
   logging: ^1.2.0
   http: ^1.0.0
-  rxdart: ^0.27.7
+  rxdart: ^0.28.0
   path_provider: ^2.0.15
-  uuid: ^3.0.7
+  uuid: ^4.5.2
   image_picker: ^1.0.0
-  flutter_dotenv: ^5.1.0
-  firebase_core: ^2.15.0
-  google_mobile_ads: ^3.0.0
+  flutter_dotenv: ^6.0.0
+  firebase_core: ^4.4.0
+  google_mobile_ads: ^7.0.0
 
 dev_dependencies:
   flutter_test:
@@ -62,10 +62,11 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^2.0.0
+  flutter_lints: ^6.0.0
   hive_generator: ^2.0.0
-  build_runner: ^2.4.5
-  flutter_launcher_icons: ^0.13.1
+  # 2.9+ は build ^4 を要求するため hive_generator と競合する。hive_generator が build ^4 対応するまで 2.8 以下に固定
+  build_runner: ">=2.4.5 <2.9.0"
+  flutter_launcher_icons: ^0.14.4
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 

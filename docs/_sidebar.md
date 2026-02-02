@@ -1,5 +1,7 @@
 - ## [🏠 Home](/) <!-- {docsify-ignore} -->
 
+- ## [📱 リリース準備](/for-release/) <!-- {docsify-ignore} -->
+
 - ## [⚒️ 環境構築方法](/environment/) <!-- {docsify-ignore} -->
 
 - ## [☁️ GCP](/gcp/) <!-- {docsify-ignore} -->

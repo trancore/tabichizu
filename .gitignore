@@ -53,3 +53,6 @@ ios/Runner/GoogleService-Info.plist
 /macos/
 /windows/
 /web/
+
+# FVM Version Cache
+.fvm/

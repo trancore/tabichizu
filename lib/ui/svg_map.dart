@@ -101,7 +101,7 @@ class SVGMapState extends State<SVGMap> {
                     Padding(
                       padding: EdgeInsetsDirectional.only(top: 64),
                     ),
-                    AdBannerWidget(size: AdSize.largeBanner),
+                    // AdBannerWidget(size: AdSize.largeBanner),
                   ],
                 )),
               ),
